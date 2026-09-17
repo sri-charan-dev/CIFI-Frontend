@@ -7,7 +7,9 @@ import ExploreIssues from "./pages/ExploreIssues";
 import IssueDetails from "./pages/IssueDetails";
 import MyReports from "./pages/MyReports";
 import Notifications from "./pages/Notifications";
-
+import AuthorityDashboard from "./pages/AuthorityDashboard";
+import AuthorityIssues from "./pages/Authorityissues";
+import AuthorityUsers from "./pages/AuthorityUsers";
 
 function App() {
   return (
@@ -21,6 +23,10 @@ function App() {
         <Route path="/issue/:id" element={<IssueDetails />} />
         <Route path="/myreports" element={<MyReports />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/authority" element={<AuthorityDashboard />} />
+        <Route path="/authority/issues" element={<AuthorityIssues />} />
+        <Route path="/authority/users" element={<AuthorityUsers />} />
+
       </Routes>
     </BrowserRouter>
   );

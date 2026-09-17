@@ -14,13 +14,25 @@ function Login() {
       alert("Please enter your email address");
       return;
     }
+    // 🏛️ AUTHORITY LOGIN
+    if (userType === "authority") {
+      console.log("Logging in as Authority...");
 
+      setTimeout(() => {
+        console.log("Navigating to Authority Dashboard...");
+        navigate("/authority");
+      }, 2000);
+
+      return;
+    }
+
+    // 👤 CITIZEN LOGIN — existing logic
     const nameFromEmail = email.split("@")[0];
 
     const formattedName =
       nameFromEmail.charAt(0).toUpperCase() + nameFromEmail.slice(1);
 
-    console.log("Logging in...")
+    console.log("Logging in as Citizen...");
 
     setTimeout(() => {
       console.log("navigating to home...")
@@ -52,7 +64,7 @@ function Login() {
           </h2>
 
           <p className="mt-2 text-gray-500">
-            Sign in to continue to CIFI
+            Register to continue to CIFI
           </p>
 
           {/* USER TYPE */}
@@ -61,8 +73,8 @@ function Login() {
               type="button"
               onClick={() => setUserType("citizen")}
               className={`py-3 rounded-lg font-semibold transition-all duration-300 ${userType === "citizen"
-                  ? "bg-[#17496d] text-white shadow-md"
-                  : "text-gray-500 hover:text-blue-600"
+                ? "bg-[#17496d] text-white shadow-md"
+                : "text-gray-500 hover:text-blue-600"
                 }`}
             >
               Citizen
@@ -72,8 +84,8 @@ function Login() {
               type="button"
               onClick={() => setUserType("authority")}
               className={`py-3 rounded-lg font-semibold transition-all duration-300 ${userType === "authority"
-                  ? "bg-[#17496d] text-white shadow-md"
-                  : "text-gray-500 hover:text-blue-600"
+                ? "bg-[#17496d] text-white shadow-md"
+                : "text-gray-500 hover:text-blue-600"
                 }`}
             >
               Authority
