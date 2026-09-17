@@ -42,12 +42,12 @@ export const issues = [
       },
       {
         status: "Verified by Authority",
-        date: "03 September 2026, 05:29PM",
+        date: "03 September 2026, 05:00PM",
         color: "bg-blue-500",
       },
       {
         status: "Assigned to Road Department",
-        date: "03 September 2026, 06:00PM",
+        date: "03 September 2026, 05:15PM",
         color: "bg-green-500",
       },
       {
