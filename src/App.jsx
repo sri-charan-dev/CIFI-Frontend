@@ -10,6 +10,10 @@ import Notifications from "./pages/Notifications";
 import AuthorityDashboard from "./pages/AuthorityDashboard";
 import AuthorityIssues from "./pages/Authorityissues";
 import AuthorityUsers from "./pages/AuthorityUsers";
+import AuthorityDepartments from "./pages/AuthorityDepartments";
+import AnalyticsReports from "./pages/AnalyticsReports";
+import AuthorityCategories from "./pages/AuthorityCategories";
+import AuthorityNotifications from "./pages/AuthorityNotifications";
 
 function App() {
   return (
@@ -26,7 +30,10 @@ function App() {
         <Route path="/authority" element={<AuthorityDashboard />} />
         <Route path="/authority/issues" element={<AuthorityIssues />} />
         <Route path="/authority/users" element={<AuthorityUsers />} />
-
+        <Route path="/authority/departments" element={<AuthorityDepartments />} />
+        <Route path="/authority/analytics" element={<AnalyticsReports />} />
+        <Route path="/authority/categories" element={<AuthorityCategories />} />
+        <Route path="/authority/notifications" element={<AuthorityNotifications />} />
       </Routes>
     </BrowserRouter>
   );

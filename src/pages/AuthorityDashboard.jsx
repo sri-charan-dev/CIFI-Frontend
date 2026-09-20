@@ -2,12 +2,17 @@ import { issues } from "../data/issues";
 import Authoritysidebar from "../components/Authoritysidebar";
 import hyderabadMap from "../assets/maps/hyderabad-map.png";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import {
     FileText,
     Clock,
     LoaderCircle,
     CheckCircle,
+    House,
+    ChevronDown,
+    Bell,
+    Search
 } from "lucide-react";
 
 import {
@@ -28,6 +33,8 @@ import {
 function AuthorityDashboard() {
 
     const navigate = useNavigate();
+
+    const [search, setSearch] = useState("");
 
     // ---------- DATA ----------
 
@@ -133,392 +140,468 @@ function AuthorityDashboard() {
 
             <Authoritysidebar />
 
-            <main className="ml-64 flex-1 p-8">
+            <div className="ml-64 flex-1 min-h-screen bg-[#f4f7fa]">
 
-                {/* HEADER */}
+                {/* TOP BAR */}
+                <header className="h-[58px] bg-white/95 border-b border-gray-100 px-7 flex items-center justify-between sticky top-0 z-20">
 
-                <div className="mb-7">
-                    <h1 className="text-3xl font-bold text-[#173b57]">
-                        Authority Dashboard
-                    </h1>
-
-                    <p className="text-gray-500 mt-2">
-                        Monitor and manage reported infrastructure issues.
-                    </p>
-                </div>
+                    <div className="flex items-center gap-3 text-[#173b57]">
+                        <House size={19} />
+                        <span className="text-gray-300">/</span>
+                        <span className="font-medium">
+                            Dashboard
+                        </span>
+                    </div>
 
 
-                {/* SUMMARY CARDS */}
+                    <div className="flex items-center gap-5">
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                        <div className="relative w-60">
 
-                    {cards.map((card, index) => (
-                        <div
-                            key={index}
-                            className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition"
-                        >
+                            <Search
+                                size={17}
+                                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                            />
 
-                            <div className="flex items-start justify-between">
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                value={search}
+                                onChange={(e) =>
+                                    setSearch(e.target.value)
+                                }
+                                className="w-full h-10 pl-10 pr-4 rounded-lg bg-[#f6f8fb] border border-gray-100 text-sm outline-none focus:border-blue-300"
+                            />
 
-                                <div>
-                                    <p className="text-xs font-medium text-gray-500">
-                                        {card.title}
-                                    </p>
+                        </div>
 
-                                    <h2 className="text-2xl font-bold text-[#173b57] mt-1">
-                                        {card.value}
-                                    </h2>
-                                </div>
 
-                                <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${card.iconStyle}`}>
-                                    {card.icon}
-                                </div>
+                        <div className="relative text-[#173b57]">
 
+                            <Bell size={20} />
+
+                            <span className="absolute -right-1 -top-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white" />
+
+                        </div>
+
+
+                        <div className="flex items-center gap-2">
+
+                            <div className="w-9 h-9 rounded-full bg-[#17496d] text-white flex items-center justify-center font-semibold">
+                                A
                             </div>
 
-                            <p className={`text-[11px] mt-2 ${card.textStyle}`}>
-                                {card.text}
-                            </p>
+                            <div className="leading-tight">
+                                <p className="text-sm font-semibold text-gray-800">
+                                    Admin
+                                </p>
+
+                                <p className="text-xs text-gray-500">
+                                    Authority
+                                </p>
+                            </div>
+
+                            <ChevronDown
+                                size={16}
+                                className="text-gray-500"
+                            />
 
                         </div>
-                    ))}
 
-                </div>
+                    </div>
 
+                </header>
 
-                {/* CHARTS */}
+                <main className="p-8">
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-6">
+                    {/* PAGE HEADER */}
 
+                    <div className="mb-7">
+                        <h1 className="text-3xl font-bold text-[#173b57]">
+                            Authority Dashboard
+                        </h1>
 
-                    {/* STATUS */}
-
-                    <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-
-                        <h2 className="text-lg font-bold text-[#173b57]">
-                            Issues by Status
-                        </h2>
-
-                        <p className="text-sm text-gray-500 mt-1">
-                            Current status of reported issues
+                        <p className="text-gray-500 mt-2">
+                            Monitor and manage reported infrastructure issues.
                         </p>
-
-                        <div className="h-64 mt-4">
-
-                            <ResponsiveContainer width="100%" height="100%">
-
-                                <BarChart data={statusData} {...chartProps}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="name" />
-                                    <YAxis allowDecimals={false} />
-                                    <Tooltip />
-
-                                    <Bar
-                                        dataKey="value"
-                                        fill="#17496d"
-                                        radius={[6, 6, 0, 0]}
-                                    />
-                                </BarChart>
-
-                            </ResponsiveContainer>
-
-                        </div>
-
                     </div>
 
 
-                    {/* SEVERITY */}
+                    {/* SUMMARY CARDS */}
 
-                    <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
 
-                        <h2 className="text-lg font-bold text-[#173b57]">
-                            Issues by Severity
-                        </h2>
+                        {cards.map((card, index) => (
+                            <div
+                                key={index}
+                                className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition"
+                            >
 
-                        <p className="text-sm text-gray-500 mt-1">
-                            Distribution based on issue severity
-                        </p>
+                                <div className="flex items-start justify-between">
 
-                        <div className="h-64 mt-4">
-
-                            <ResponsiveContainer width="100%" height="100%">
-
-                                <BarChart data={severityData} {...chartProps}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="name" />
-                                    <YAxis allowDecimals={false} />
-                                    <Tooltip />
-
-                                    <Bar
-                                        dataKey="value"
-                                        fill="#17496d"
-                                        radius={[6, 6, 0, 0]}
-                                    />
-                                </BarChart>
-
-                            </ResponsiveContainer>
-
-                        </div>
-
-                    </div>
-
-
-                    {/* CATEGORY */}
-
-                    <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-
-                        <h2 className="text-lg font-bold text-[#173b57]">
-                            Issues by Category
-                        </h2>
-
-                        <p className="text-sm text-gray-500 mt-1">
-                            Distribution of infrastructure issues
-                        </p>
-
-                        <div className="h-64 mt-4">
-
-                            <ResponsiveContainer width="100%" height="100%">
-
-                                <PieChart>
-
-                                    <Pie
-                                        data={categoryData}
-                                        dataKey="value"
-                                        nameKey="name"
-                                        cx="50%"
-                                        cy="50%"
-                                        outerRadius={80}
-                                        label
-                                    >
-
-                                        {categoryData.map((_, index) => (
-                                            <Cell
-                                                key={index}
-                                                fill={[
-                                                    "#17496d",
-                                                    "#2878a8",
-                                                    "#4ca3c7",
-                                                    "#7ab8d1",
-                                                    "#9fcbd9"
-                                                ][index]}
-                                            />
-                                        ))}
-
-                                    </Pie>
-
-                                    <Tooltip />
-                                    <Legend />
-
-                                </PieChart>
-
-                            </ResponsiveContainer>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                {/* AREA HEALTH */}
-
-                <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 mt-5">
-
-                    <div className="flex items-center justify-between mb-5">
-
-                        <div>
-                            <h2 className="text-lg font-bold text-[#173b57]">
-                                Area-wise Infrastructure Health
-                            </h2>
-
-                            <p className="text-sm text-gray-500 mt-1">
-                                Infrastructure health based on reported issue severity
-                            </p>
-                        </div>
-
-                        <button className="text-sm font-medium text-blue-600 hover:text-blue-800">
-                            View All Areas →
-                        </button>
-
-                    </div>
-
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-
-                        {areaHealthData.map((area, index) => {
-
-                            const color =
-                                area.health >= 70
-                                    ? "green"
-                                    : area.health >= 40
-                                        ? "orange"
-                                        : "red";
-
-                            return (
-                                <div
-                                    key={index}
-                                    className="border border-gray-100 rounded-lg p-4"
-                                >
-
-                                    <div className="flex items-center justify-between">
-
-                                        <span className="text-sm font-medium text-gray-700">
-                                            {area.area}
-                                        </span>
-
-                                        <span className={`text-sm font-bold text-${color}-600`}>
-                                            {area.health}/100
-                                        </span>
-
-                                    </div>
-
-                                    <div className="w-full bg-gray-100 rounded-full h-2 mt-3">
-
-                                        <div
-                                            className={`h-2 rounded-full bg-${color}-500`}
-                                            style={{ width: `${area.health}%` }}
-                                        />
-
-                                    </div>
-
-                                    <p className="text-xs text-gray-400 mt-2">
-                                        Based on current reported issues
-                                    </p>
-
-                                </div>
-                            );
-
-                        })}
-
-                    </div>
-
-                </div>
-
-
-                {/* HEATMAP */}
-
-                <div className="bg-white rounded-xl shadow-sm p-6 mt-5">
-
-                    <div className="flex justify-between items-center mb-4">
-
-                        <h2 className="text-xl font-bold text-[#173b57]">
-                            Live Issue Heatmap
-                        </h2>
-
-                        <span className="text-sm text-gray-500">
-                            {issues.length} active locations
-                        </span>
-
-                    </div>
-
-
-                    <div className="relative w-full h-[450px] border rounded-lg overflow-hidden">
-
-                        <img
-                            src={hyderabadMap}
-                            alt="Hyderabad Map"
-                            className="w-full h-full object-cover"
-                        />
-
-
-                        {issues.map(issue => {
-
-                            const position = mapPositions[issue.id];
-
-                            return (
-                                <div
-                                    key={issue.id}
-                                    className="group absolute"
-                                    style={position}
-                                >
-
-                                    <div
-                                        className={`absolute w-6 h-6 rounded-full animate-ping opacity-70 ${issue.severity === "Critical"
-                                            ? "bg-red-500"
-                                            : issue.severity === "High"
-                                                ? "bg-orange-500"
-                                                : "bg-yellow-400"
-                                            }`}
-                                    />
-
-                                    <div
-                                        className={`relative w-4 h-4 rounded-full border-2 border-white ${issue.severity === "Critical"
-                                            ? "bg-red-700"
-                                            : issue.severity === "High"
-                                                ? "bg-orange-600"
-                                                : "bg-yellow-500"
-                                            }`}
-                                    />
-
-
-                                    {/* HOVER CARD */}
-
-                                    <div className="hidden group-hover:block absolute top-6 left-5 bg-white shadow-xl rounded-xl p-3 w-60 z-50">
-
-                                        <img
-                                            src={issue.image}
-                                            alt={issue.title}
-                                            className="w-full h-28 object-cover rounded-lg"
-                                        />
-
-                                        <h3 className="font-semibold text-[#173b57] mt-2">
-                                            {issue.title}
-                                        </h3>
-
-                                        <p className="text-sm text-gray-500 mt-1">
-                                            📍 {issue.location}
+                                    <div>
+                                        <p className="text-xs font-medium text-gray-500">
+                                            {card.title}
                                         </p>
 
-                                        <div className="flex items-center gap-2 mt-2">
+                                        <h2 className="text-2xl font-bold text-[#173b57] mt-1">
+                                            {card.value}
+                                        </h2>
+                                    </div>
 
-                                            <span
-                                                className={`px-2 py-1 rounded-full text-xs font-medium ${issue.severity === "Critical"
-                                                    ? "bg-red-100 text-red-600"
-                                                    : issue.severity === "High"
-                                                        ? "bg-orange-100 text-orange-600"
-                                                        : "bg-yellow-100 text-yellow-700"
-                                                    }`}
-                                            >
-                                                {issue.severity}
-                                            </span>
-
-                                            <span className="text-xs text-gray-500">
-                                                {issue.status}
-                                            </span>
-
-                                        </div>
-
+                                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${card.iconStyle}`}>
+                                        {card.icon}
                                     </div>
 
                                 </div>
-                            );
 
-                        })}
+                                <p className={`text-[11px] mt-2 ${card.textStyle}`}>
+                                    {card.text}
+                                </p>
 
-                    </div>
-
-
-                    {/* LEGEND */}
-
-                    <div className="flex justify-center gap-6 mt-4 text-sm">
-
-                        {[
-                            ["bg-red-600", "Critical"],
-                            ["bg-orange-500", "High"],
-                            ["bg-yellow-400", "Medium"]
-                        ].map(([color, label]) => (
-                            <div key={label} className="flex items-center gap-2">
-                                <div className={`w-3 h-3 rounded-full ${color}`} />
-                                <span>{label}</span>
                             </div>
                         ))}
 
                     </div>
 
-                </div>
 
-            </main>
+                    {/* CHARTS */}
 
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-6">
+
+
+                        {/* STATUS */}
+
+                        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+
+                            <h2 className="text-lg font-bold text-[#173b57]">
+                                Issues by Status
+                            </h2>
+
+                            <p className="text-sm text-gray-500 mt-1">
+                                Current status of reported issues
+                            </p>
+
+                            <div className="h-64 mt-4">
+
+                                <ResponsiveContainer width="100%" height="100%">
+
+                                    <BarChart data={statusData} {...chartProps}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="name" />
+                                        <YAxis allowDecimals={false} />
+                                        <Tooltip />
+
+                                        <Bar
+                                            dataKey="value" radius={[6, 6, 0, 0]}> {statusData.map((entry, index) => (
+                                                <Cell
+                                                    key={`cell-${index}`}
+                                                    fill={["#3B82F6", "#F59E0B", "#22C55E"][index]} />
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+
+                                </ResponsiveContainer>
+
+                            </div>
+
+                        </div>
+
+
+                        {/* SEVERITY */}
+
+                        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+
+                            <h2 className="text-lg font-bold text-[#173b57]">
+                                Issues by Severity
+                            </h2>
+
+                            <p className="text-sm text-gray-500 mt-1">
+                                Distribution based on issue severity
+                            </p>
+
+                            <div className="h-64 mt-4">
+
+                                <ResponsiveContainer width="100%" height="100%">
+
+                                    <BarChart data={severityData} {...chartProps}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="name" />
+                                        <YAxis allowDecimals={false} />
+                                        <Tooltip />
+
+                                        <Bar
+                                            dataKey="value" radius={[6, 6, 0, 0]}> {severityData.map((entry, index) => (
+                                                <Cell
+                                                    key={`cell-${index}`}
+                                                    fill={["#EF4444", "#F59E0B", "#22C55E"][index]} />
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+
+                                </ResponsiveContainer>
+
+                            </div>
+
+                        </div>
+
+
+                        {/* CATEGORY */}
+
+                        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+
+                            <h2 className="text-lg font-bold text-[#173b57]">
+                                Issues by Category
+                            </h2>
+
+                            <p className="text-sm text-gray-500 mt-1">
+                                Distribution of infrastructure issues
+                            </p>
+
+                            <div className="h-64 mt-4">
+
+                                <ResponsiveContainer width="100%" height="100%">
+
+                                    <PieChart>
+
+                                        <Pie
+                                            data={categoryData}
+                                            dataKey="value"
+                                            nameKey="name"
+                                            cx="50%"
+                                            cy="50%"
+                                            outerRadius={100}
+                                            innerRadius={0}
+                                        >
+
+                                            {categoryData.map((entry, index) => (
+                                                <Cell
+                                                    key={`cell-${index}`}
+                                                    fill={[
+                                                        "#3B82F6",
+                                                        "#F59E0B",
+                                                        "#06B6D4",
+                                                        "#8B5CF6",
+                                                        "#22C55E",
+                                                    ][index]}
+                                                />
+                                            ))}
+
+                                        </Pie>
+
+                                        <Tooltip />
+                                        <Legend />
+
+                                    </PieChart>
+
+                                </ResponsiveContainer>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* AREA HEALTH */}
+
+                    <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 mt-5">
+
+                        <div className="flex items-center justify-between mb-5">
+
+                            <div>
+                                <h2 className="text-lg font-bold text-[#173b57]">
+                                    Area-wise Infrastructure Health
+                                </h2>
+
+                                <p className="text-sm text-gray-500 mt-1">
+                                    Infrastructure health based on reported issue severity
+                                </p>
+                            </div>
+
+                            <button className="text-sm font-medium text-blue-600 hover:text-blue-800">
+                                View All Areas →
+                            </button>
+
+                        </div>
+
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+
+                            {areaHealthData.map((area, index) => {
+
+                                const color =
+                                    area.health >= 70
+                                        ? "green"
+                                        : area.health >= 40
+                                            ? "orange"
+                                            : "red";
+
+                                return (
+                                    <div
+                                        key={index}
+                                        className="border border-gray-100 rounded-lg p-4"
+                                    >
+
+                                        <div className="flex items-center justify-between">
+
+                                            <span className="text-sm font-medium text-gray-700">
+                                                {area.area}
+                                            </span>
+
+                                            <span className={`text-sm font-bold text-${color}-600`}>
+                                                {area.health}/100
+                                            </span>
+
+                                        </div>
+
+                                        <div className="w-full bg-gray-100 rounded-full h-2 mt-3">
+
+                                            <div
+                                                className={`h-2 rounded-full bg-${color}-500`}
+                                                style={{ width: `${area.health}%` }}
+                                            />
+
+                                        </div>
+
+                                        <p className="text-xs text-gray-400 mt-2">
+                                            Based on current reported issues
+                                        </p>
+
+                                    </div>
+                                );
+
+                            })}
+
+                        </div>
+
+                    </div>
+
+
+                    {/* HEATMAP */}
+
+                    <div className="bg-white rounded-xl shadow-sm p-6 mt-5">
+
+                        <div className="flex justify-between items-center mb-4">
+
+                            <h2 className="text-xl font-bold text-[#173b57]">
+                                Live Issue Heatmap
+                            </h2>
+
+                            <span className="text-sm text-gray-500">
+                                {issues.length} active locations
+                            </span>
+
+                        </div>
+
+
+                        <div className="relative w-full h-[450px] border rounded-lg overflow-hidden">
+
+                            <img
+                                src={hyderabadMap}
+                                alt="Hyderabad Map"
+                                className="w-full h-full object-cover"
+                            />
+
+
+                            {issues.map(issue => {
+
+                                const position = mapPositions[issue.id];
+
+                                return (
+                                    <div
+                                        key={issue.id}
+                                        className="group absolute"
+                                        style={position}
+                                    >
+
+                                        <div
+                                            className={`absolute w-6 h-6 rounded-full animate-ping opacity-70 ${issue.severity === "Critical"
+                                                ? "bg-red-500"
+                                                : issue.severity === "High"
+                                                    ? "bg-orange-500"
+                                                    : "bg-yellow-400"
+                                                }`}
+                                        />
+
+                                        <div
+                                            className={`relative w-4 h-4 rounded-full border-2 border-white ${issue.severity === "Critical"
+                                                ? "bg-red-700"
+                                                : issue.severity === "High"
+                                                    ? "bg-orange-600"
+                                                    : "bg-yellow-500"
+                                                }`}
+                                        />
+
+
+                                        {/* HOVER CARD */}
+
+                                        <div className="hidden group-hover:block absolute top-6 left-5 bg-white shadow-xl rounded-xl p-3 w-60 z-50">
+
+                                            <img
+                                                src={issue.image}
+                                                alt={issue.title}
+                                                className="w-full h-28 object-cover rounded-lg"
+                                            />
+
+                                            <h3 className="font-semibold text-[#173b57] mt-2">
+                                                {issue.title}
+                                            </h3>
+
+                                            <p className="text-sm text-gray-500 mt-1">
+                                                📍 {issue.location}
+                                            </p>
+
+                                            <div className="flex items-center gap-2 mt-2">
+
+                                                <span
+                                                    className={`px-2 py-1 rounded-full text-xs font-medium ${issue.severity === "Critical"
+                                                        ? "bg-red-100 text-red-600"
+                                                        : issue.severity === "High"
+                                                            ? "bg-orange-100 text-orange-600"
+                                                            : "bg-yellow-100 text-yellow-700"
+                                                        }`}
+                                                >
+                                                    {issue.severity}
+                                                </span>
+
+                                                <span className="text-xs text-gray-500">
+                                                    {issue.status}
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                );
+
+                            })}
+
+                        </div>
+
+
+                        {/* LEGEND */}
+
+                        <div className="flex justify-center gap-6 mt-4 text-sm">
+
+                            {[
+                                ["bg-red-600", "Critical"],
+                                ["bg-orange-500", "High"],
+                                ["bg-yellow-400", "Medium"]
+                            ].map(([color, label]) => (
+                                <div key={label} className="flex items-center gap-2">
+                                    <div className={`w-3 h-3 rounded-full ${color}`} />
+                                    <span>{label}</span>
+                                </div>
+                            ))}
+
+                        </div>
+
+                    </div>
+
+                </main>
+            </div>
         </div>
     );
 }
