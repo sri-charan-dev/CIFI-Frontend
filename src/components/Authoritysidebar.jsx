@@ -98,16 +98,6 @@ function AuthoritySidebar() {
 
             {/* BOTTOM NAVIGATION */}
             <div className="px-4 pb-6 space-y-2">
-
-                {/* SETTINGS */}
-                <button
-                    onClick={() => navigate("/authority/settings")}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition"
-                >
-                    <Settings size={20} />
-                    <span>Settings</span>
-                </button>
-
                 {/* LOGOUT */}
                 <button
                     onClick={() => {

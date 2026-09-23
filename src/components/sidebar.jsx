@@ -4,7 +4,7 @@ import {
     PlusCircle,
     Search,
     FileText,
-    Settings,
+    Users,
     LogOut,
     BellIcon,
     CircleQuestionMark,
@@ -59,27 +59,27 @@ function Sidebar() {
                     <span>Notifications</span>
                 </button>
 
-                <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition">
+                <button
+                    onClick={() => navigate("/how-it-works")}
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition">
                     <CircleQuestionMark size={20} />
                     <span>How it Works</span>
                 </button>
 
-                <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition">
+                <button
+                    onClick={() => navigate("/about")}
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition">
                     <InfoIcon size={20} />
                     <span>About Us</span>
-                </button>
-
-                <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition">
-                    <Mail size={20} />
-                    <span>Contact Us</span>
                 </button>
             </nav>
 
             {/* BOTTOM NAVIGATION */}
             <div className="px-4 pb-6 space-y-2">
-                <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition">
-                    <Settings size={20} />
-                    <span>Settings</span>
+                <button onClick={() => navigate("/profile")}
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition" >
+                    <Users size={20} />
+                    <span>Profile</span>
                 </button>
 
                 <button
@@ -92,7 +92,7 @@ function Sidebar() {
                     <span>Logout</span>
                 </button>
             </div>
-        </aside>
+        </aside >
     );
 
 }
