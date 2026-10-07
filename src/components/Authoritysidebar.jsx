@@ -3,11 +3,10 @@ import {
     Home as HomeIcon,
     FileText,
     Users,
+    Tags,
     Building2,
     BarChart3,
-    Tags,
     BellIcon,
-    Settings,
     LogOut,
 } from "lucide-react";
 
@@ -28,17 +27,19 @@ function AuthoritySidebar() {
                 </p>
             </div>
 
+
             {/* NAVIGATION */}
             <nav className="flex-1 px-4 py-6 space-y-2">
 
                 {/* DASHBOARD */}
                 <button
                     onClick={() => navigate("/authority")}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-[#17496d] text-white transition"
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition"
                 >
                     <HomeIcon size={20} />
                     <span>Dashboard</span>
                 </button>
+
 
                 {/* ISSUES */}
                 <button
@@ -49,7 +50,7 @@ function AuthoritySidebar() {
                     <span>Issues</span>
                 </button>
 
-                {/* USERS */}
+                {/* Users */}
                 <button
                     onClick={() => navigate("/authority/users")}
                     className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition"
@@ -57,6 +58,27 @@ function AuthoritySidebar() {
                     <Users size={20} />
                     <span>Users</span>
                 </button>
+
+
+                {/* STAFF MANAGEMENT */}
+                <button
+                    onClick={() => navigate("/authority/staff")}
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition"
+                >
+                    <Users size={20} />
+                    <span>Staff Management</span>
+                </button>
+
+
+                {/* CATEGORIES */}
+                <button
+                    onClick={() => navigate("/authority/categories")}
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition"
+                >
+                    <Tags size={20} />
+                    <span>Categories</span>
+                </button>
+
 
                 {/* DEPARTMENTS */}
                 <button
@@ -67,6 +89,7 @@ function AuthoritySidebar() {
                     <span>Departments</span>
                 </button>
 
+
                 {/* ANALYTICS */}
                 <button
                     onClick={() => navigate("/authority/analytics")}
@@ -76,14 +99,6 @@ function AuthoritySidebar() {
                     <span>Analytics & Reports</span>
                 </button>
 
-                {/* CATEGORIES */}
-                <button
-                    onClick={() => navigate("/authority/categories")}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 hover:text-white transition"
-                >
-                    <Tags size={20} />
-                    <span>Manage Categories</span>
-                </button>
 
                 {/* NOTIFICATIONS */}
                 <button
@@ -96,8 +111,10 @@ function AuthoritySidebar() {
 
             </nav>
 
+
             {/* BOTTOM NAVIGATION */}
             <div className="px-4 pb-6 space-y-2">
+
                 {/* LOGOUT */}
                 <button
                     onClick={() => {

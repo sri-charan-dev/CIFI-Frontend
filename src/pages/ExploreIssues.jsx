@@ -5,7 +5,7 @@ import garbageImg from "../assets/issues/garbage-pileup.png";
 import footpathImg from "../assets/issues/damaged-footpath.png";
 import WaterloggingImg from "../assets/issues/waterlogging.png";
 import { issues } from "../data/issues";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/sidebar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useMemo, useRef, useState } from "react";
 import { issues } from "../data/issues";
 import Authoritysidebar from "../components/Authoritysidebar";
@@ -40,6 +41,7 @@ import {
 
 function AuthorityCategories() {
 
+    const navigate = useNavigate();
     // =========================================================
     // CATEGORY DEFINITIONS
     // Based only on existing issues.js categories
@@ -605,47 +607,42 @@ function AuthorityCategories() {
 
                         {/* NOTIFICATION */}
 
-                        <button
-                            className="relative text-[#315a78] hover:text-blue-600"
-                            onClick={() =>
-                                alert("No new category notifications.")
-                            }
+                        <div
+                            className="relative cursor-pointer"
+                            onClick={() => navigate("/authority/notifications")}
                         >
+                            <span className="absolute -right-1 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white">
+                                3
+                            </span>
 
-                            <Bell size={21} />
-
-                            <span className="absolute -right-1 -top-1 w-2.5 h-2.5 rounded-full bg-red-500 border-2 border-white" />
-
-                        </button>
+                            <Bell
+                                size={25}
+                                strokeWidth={2}
+                                className="text-[#174F73]"
+                            />
+                        </div>
 
 
                         {/* ADMIN */}
 
-                        <div className="flex items-center gap-3">
-
-                            <div className="w-10 h-10 rounded-full bg-[#1d5d87] text-white flex items-center justify-center font-semibold">
+                        <div
+                            onClick={() => navigate("/authority/profile")}
+                            className="flex cursor-pointer items-center gap-3 rounded-xl p-2 transition hover:bg-slate-50"
+                        >
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#174F73] text-sm font-semibold text-white">
                                 A
                             </div>
 
-                            <div className="leading-tight">
-
-                                <p className="font-semibold text-[#172b4d]">
+                            <div>
+                                <p className="text-sm font-semibold text-[#173F5F]">
                                     Admin
                                 </p>
 
-                                <p className="text-xs text-gray-500">
-                                    Authority
+                                <p className="text-xs text-slate-500">
+                                    Municipal Authority
                                 </p>
-
                             </div>
-
-                            <ChevronDown
-                                size={18}
-                                className="text-[#315a78]"
-                            />
-
                         </div>
-
                     </div>
 
                 </header>

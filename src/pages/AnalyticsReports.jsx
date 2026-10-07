@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useMemo, useState } from "react";
 import { issues } from "../data/issues";
 
@@ -46,7 +47,7 @@ function AnalyticsReports() {
     // =========================================================
     // STATE
     // =========================================================
-
+    const navigate = useNavigate();
     const [search, setSearch] = useState("");
 
     const [dateRange, setDateRange] = useState(
@@ -905,44 +906,43 @@ function AnalyticsReports() {
 
                         {/* NOTIFICATION */}
 
-                        <div className="relative text-[#173b57]">
+                        <div
+                            className="relative cursor-pointer"
+                            onClick={() => navigate("/authority/notifications")}
+                        >
+                            <span className="absolute -right-1 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white">
+                                3
+                            </span>
 
-                            <Bell size={20} />
-
-                            <span className="absolute -right-1 -top-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white" />
-
+                            <Bell
+                                size={25}
+                                strokeWidth={2}
+                                className="text-[#174F73]"
+                            />
                         </div>
 
 
                         {/* ADMIN */}
 
-                        <div className="flex items-center gap-2">
-
-                            <div className="w-9 h-9 rounded-full bg-[#17496d] text-white flex items-center justify-center font-semibold">
+                        <div
+                            onClick={() => navigate("/authority/profile")}
+                            className="flex cursor-pointer items-center gap-3 rounded-xl p-2 transition hover:bg-slate-50"
+                        >
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#174F73] text-sm font-semibold text-white">
                                 A
                             </div>
 
-                            <div className="leading-tight">
-
-                                <p className="text-sm font-semibold text-gray-800">
+                            <div>
+                                <p className="text-sm font-semibold text-[#173F5F]">
                                     Admin
                                 </p>
 
-                                <p className="text-xs text-gray-500">
-                                    Authority
+                                <p className="text-xs text-slate-500">
+                                    Municipal Authority
                                 </p>
-
                             </div>
-
-                            <ChevronDown
-                                size={16}
-                                className="text-gray-500"
-                            />
-
                         </div>
-
                     </div>
-
                 </header>
 
 
